@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: vinabeef-reporting
+  datasource:                     # READ REPLICA — reporting never writes business tables
+    url: jdbc:postgresql://${DB_REPLICA_HOST:localhost}:5432/vinabeef
+    username: ${DB_REPORTING_USER:reporting_ro}
+    password: ${DB_REPORTING_PASSWORD:}
+    hikari:
+      read-only: true
+      maximum-pool-size: 5
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:https://auth.vinabeef.vn}
+
+reporting:
+  query-timeout-seconds: 30
+  nadcs:
+    cron: "0 0 1 * * *"           # 01:00 every day
+  plugins:                        # exposed to plugins through PluginContext.config("...")
+    pdf.font: /fonts/NotoSans-Regular.ttf
+    nadcs:
+      base-url: ${NADCS_BASE_URL:https://nadcs.example.gov.vn}
+      api-key: ${NADCS_API_KEY:}
+      farm-code: ${NADCS_FARM_CODE:VB-001}
+      max-attempts: 5

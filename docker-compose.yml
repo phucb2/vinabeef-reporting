@@ -1,0 +1,21 @@
+# Local dev only: a dummy PostgreSQL standing in for the read replica.
+# Init scripts run in name order, and only when the data volume is empty (reset: docker compose down -v).
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vinabeef-postgres
+    environment:
+      POSTGRES_DB: vinabeef
+      POSTGRES_USER: vinabeef
+      POSTGRES_PASSWORD: vinabeef
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/schema-v2.sql:/docker-entrypoint-initdb.d/01-schema-v2.sql:ro
+      - ./docker/postgres/02-grants.sql:/docker-entrypoint-initdb.d/02-grants.sql:ro
+      - ./docker/postgres/03-seed.sql:/docker-entrypoint-initdb.d/03-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vinabeef -d vinabeef"]
+      interval: 2s
+      timeout: 3s
+      retries: 20

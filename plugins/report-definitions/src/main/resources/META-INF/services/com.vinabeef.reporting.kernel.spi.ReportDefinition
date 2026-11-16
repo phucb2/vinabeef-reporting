@@ -1,0 +1,5 @@
+com.vinabeef.reporting.plugins.definitions.HerdByBarnReport
+com.vinabeef.reporting.plugins.definitions.TreatmentSummaryReport
+com.vinabeef.reporting.plugins.definitions.TreatmentTrendReport
+com.vinabeef.reporting.plugins.definitions.OutbreakCasesReport
+com.vinabeef.reporting.plugins.definitions.DashboardKpiReport

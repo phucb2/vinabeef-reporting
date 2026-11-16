@@ -1,0 +1,20 @@
+# Local dev profile: docker-compose Postgres + locally minted JWTs. Activate with --spring.profiles.active=local
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vinabeef
+    username: reporting_ro
+    password: reporting_ro
+
+local:
+  jwt:
+    secret: ${LOCAL_JWT_SECRET:local-dev-secret-change-me-0123456789abcdef}   # >= 32 bytes for HS256
+
+reporting:
+  plugins:
+    # macOS system fonts with Vietnamese glyphs (read from disk, not bundled). Override with PDF_FONT / PDF_FONT_BOLD.
+    pdf.font: ${PDF_FONT:/System/Library/Fonts/Supplemental/Arial.ttf}
+    pdf.font-bold: ${PDF_FONT_BOLD:/System/Library/Fonts/Supplemental/Arial Bold.ttf}
+    nadcs:
+      base-url: ${NADCS_BASE_URL:http://localhost:9999}   # nothing listens here: sync fails + alerts, as designed
+      api-key: ${NADCS_API_KEY:dummy-key}
+      max-attempts: 2
