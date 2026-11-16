@@ -5,6 +5,13 @@ spring:
     username: reporting_ro
     password: reporting_ro
 
+springdoc:                        # Swagger UI: http://localhost:8080/swagger-ui.html
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    persist-authorization: true   # keep the pasted dev token across page reloads
+
 local:
   jwt:
     secret: ${LOCAL_JWT_SECRET:local-dev-secret-change-me-0123456789abcdef}   # >= 32 bytes for HS256

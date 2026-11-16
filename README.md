@@ -300,6 +300,10 @@ curl -H "Authorization: Bearer $TOKEN" "localhost:8080/api/v1/reports/summary?pe
 curl -H "Authorization: Bearer $TOKEN" -OJ "localhost:8080/api/v1/reports/export?type=treatment-trend&period=2026&granularity=QUARTER&format=xlsx"
 ```
 
+API docs (springdoc): Swagger UI at http://localhost:8080/swagger-ui.html, OpenAPI JSON at `/v3/api-docs`.
+Click **Authorize** and paste the output of `scripts/dev-token.sh MANAGER` (or `ADMIN`). Docs are on in the `local`
+profile and off by default elsewhere; enable them with `API_DOCS_ENABLED=true`.
+
 The `local` profile (`application-local.yml` + `LocalJwtConfig`) swaps the issuer-based JWT check for an
 HS256 dev secret and points NADCS at an unused port, so a sync fails and raises the admin alert.
 `docker compose down -v` resets the data (init scripts only run on an empty volume).

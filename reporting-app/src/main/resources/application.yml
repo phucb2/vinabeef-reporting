@@ -14,6 +14,15 @@ spring:
         jwt:
           issuer-uri: ${JWT_ISSUER_URI:https://auth.vinabeef.vn}
 
+springdoc:                        # OpenAPI docs: off by default, switched on per environment (see application-local.yml)
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:false}
+  swagger-ui:
+    enabled: ${API_DOCS_ENABLED:false}
+    operations-sorter: method
+    try-it-out-enabled: true
+  default-produces-media-type: application/json
+
 reporting:
   query-timeout-seconds: 30
   nadcs:
